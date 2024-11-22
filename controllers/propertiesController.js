@@ -246,14 +246,31 @@ export const filterProperties = async (req, res) => {
     // console.log(properties)
 
     // Filter out results where the populated fields do not match the query (due to Mongoose populate limitations)
+    // properties = properties.filter(
+    //   (property) =>
+    //     (!builderName || property.builder) &&
+    //     (!locationName || property.location) &&
+    //     (!amenitiesName || property.amenities.length > 0)
+    // );
+
+    const requiredAmenities = amenitiesName ? amenitiesName.split("_").map(item => item.replace(/-/g, " ")) : [];
+
     properties = properties.filter(
       (property) =>
         (!builderName || property.builder) &&
         (!locationName || property.location) &&
-        (!amenitiesName || property.amenities.length > 0)
+        (!amenitiesName || 
+          (property.amenities.length > 0 &&
+           requiredAmenities.every((amenity) =>
+             property.amenities.map((a) => a.name).includes(amenity)
+           )
+          )
+        )
     );
 
-    res.status(200).json({ success: true, data: properties });
+    res.status(200).json(properties);
+
+    // res.status(200).json({ success: true, data: properties });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Server Error', error });
