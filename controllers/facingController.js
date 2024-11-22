@@ -35,24 +35,17 @@ export const createFacing = async (req, res) => {
 };
 
 export const getFacing = async (req, res) => {
-    try {
-        const newFacing = await Facing.find();
-        // res.status(200).json(amenities);
-
-        res.status(201).send({
-          success: true,
-          message: "Amenties fetch successfully",
-          newFacing,
-          
-        });
-    } catch (error) {
-      res.status(500).send({
-        success: false,
-        message: "Errro in Fetching Facing",
-        error,
-      });
-    }
+  try {
+    const facing = await Facing.find();
+    res.status(200).json(facing); // Sending the object directly
+  } catch (error) {
+    res.status(500).json({
+      message: "Error in fetching Facing",
+      error,
+    });
+  }
 };
+
 
 
 export const updateFacing = async (req, res) => {

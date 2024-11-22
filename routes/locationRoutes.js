@@ -4,8 +4,8 @@ import { authenticate } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/createlocation', authenticate, createLocation);
-router.get('/getLoacation', authenticate, getLocations);
+router.post('/createlocation',  createLocation);
+router.get('/getLoacation', getLocations);
 router.put('/updatelocation/:id', authenticate, updateLocation);
 router.delete('/deletelocation/:id', authenticate, deleteLocation);
 

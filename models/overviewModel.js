@@ -14,10 +14,11 @@ const overviewSchema = new mongoose.Schema({
         default:"Active"
     },
 
-    type:{
-        type:{String},
-        enum:['Number','text','dropdown','boolean'],
-    },
+    // type:{
+    //     type:String,
+    //     enum:['Number','text','dropdown','boolean'],
+    //     default:String,
+    // },
 
     logo: { type: String, required: true },
 }, { timestamps: true });

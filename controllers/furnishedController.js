@@ -34,25 +34,37 @@ export const createFurnished = async (req, res) => {
     }
 };
 
-export const getFurnished = async (req, res) => {
-    try {
-        const newFurnished = await Furnished.find();
-        // res.status(200).json(amenities);
 
-        res.status(201).send({
-          success: true,
-          message: "Amenties fetch successfully",
-          newFurnished,
-          
-        });
-    } catch (error) {
-      res.status(500).send({
-        success: false,
-        message: "Errro in Fetching Furnished",
-        error,
-      });
-    }
+export const getFurnished = async (req, res) => {
+  try {
+    const furnished = await Furnished.find();
+    res.status(200).json(furnished); // Sending only the object directly
+  } catch (error) {
+    res.status(500).send(error); // Sending the error directly (optional)
+  }
 };
+
+
+// export const getFurnished = async (req, res) => {
+//     try {
+//         const newFurnished = await Furnished.find();
+//         // res.status(200).json(amenities);
+
+//         res.status(201).send({
+//           success: true,
+//           message: "Amenties fetch successfully",
+//           newFurnished,
+          
+//         });
+//     } catch (error) {
+//       res.status(500).send({
+//         success: false,
+//         message: "Errro in Fetching Furnished",
+//         error,
+//       });
+//     }
+// };
+
 
 
 export const updateFurnished = async (req, res) => {

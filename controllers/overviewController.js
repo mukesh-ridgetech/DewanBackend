@@ -76,12 +76,12 @@ export const createOverview = async (req, res) => {
 
 
 
-    const { name, value,logo,type } = req.body;
+    const { name, value,logo } = req.body;
     console.log(name,value,logo)
     // const logos = req.files['logo'] ? req.files['logo'].map(file => file.path) : [];
 
     try {
-        const newOverview = new Overview({ name, value, logo ,type});
+        const newOverview = new Overview({ name, value, logo});
         await newOverview.save();
       
         if(newOverview){
@@ -127,11 +127,11 @@ export const getOverviews = async (req, res) => {
 
 export const updateOverview = async (req, res) => {
     const { id } = req.params;
-    const { name, value ,logo,type} = req.body;
+    const { name, value ,logo} = req.body;
     // const logos = req.files['logo'] ? req.files['logo'].map(file => file.path) : [];
 
     try {
-        const updatedOverview = await Overview.findByIdAndUpdate(id, { name, value, logo,type }, { new: true });
+        const updatedOverview = await Overview.findByIdAndUpdate(id, { name, value, logo }, { new: true });
         
         if(updatedOverview){
             res.status(201).send({

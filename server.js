@@ -12,6 +12,7 @@ import flooringRoutes from './routes/flooringRoutes.js'
 import parkingRoutes from './routes/parkingRoutes.js'
 import neighbourhoodRoutes from './routes/neighbourhoodRoutes.js'
 import transitionRoutes from './routes/transitionRoutes.js'
+import propertiesRoutes from './routes/propertiesRoutes.js'
 import cors from 'cors'
 // Initialize App and Configurations
 dotenv.config()
@@ -38,6 +39,7 @@ app.use('/api/flooring', flooringRoutes);
 app.use('/api/parking', parkingRoutes);
 app.use('/api/neighbourhood', neighbourhoodRoutes);
 app.use('/api/transition', transitionRoutes);
+app.use('/api/properties', propertiesRoutes);
 
 
 app.get('/', (req, res) => {

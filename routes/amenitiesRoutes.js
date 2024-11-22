@@ -7,7 +7,7 @@ import upload from '../config/Single.js';
 const router = express.Router();
 
 router.post('/createAmenties', authenticate, uploadMultiple, createAmenity);
-router.get('/getAmenties', authenticate, getAmenities);
+router.get('/getAmenties',  getAmenities);
 router.put('/updateAmenties/:id', authenticate, uploadMultiple, updateAmenity);
 router.patch('/toggled/:id', authenticate,  toggeled);
 router.delete('/deleteAmenties/:id', authenticate, deleteAmenity);
