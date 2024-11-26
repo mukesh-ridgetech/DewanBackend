@@ -8,11 +8,13 @@ const trendingSchema = mongoose.Schema(
             required: true,
         },
 
-        properties: {
+        properties: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'properties',
             required: true,
-        },
+        }],
+
+        // amenities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Amenities' }],
         
        
         Status:{
