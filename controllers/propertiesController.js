@@ -177,6 +177,7 @@ export const filterProperties = async (req, res) => {
       amenitiesName,
       minAge,
       maxAge,
+      searchQuery
     } = req.query;
 
     var location = ""
@@ -233,7 +234,7 @@ export const filterProperties = async (req, res) => {
       .populate({
         path: 'location',
         match: location ? { sector: { $regex: location, $options: 'i' } } : {}, // Filter location by name
-        // select: 'name', // Select specific fields
+         
       })
       .populate({
         path: 'amenities',
@@ -267,6 +268,26 @@ export const filterProperties = async (req, res) => {
           )
         )
     );
+
+
+    if(searchQuery){
+
+      const formattedQuery = searchQuery.replace(/_/g, ' ');
+       properties = properties.filter(item => {
+        // Check if any of the fields contains the search query (case-insensitive)
+        return (
+          item?.location.country.toLowerCase().includes(formattedQuery.toLowerCase()) ||
+          item?.location.state.toLowerCase().includes(formattedQuery.toLowerCase()) ||
+          item?.location.city.toLowerCase().includes(formattedQuery.toLowerCase()) ||
+          item?.location.sector.toLowerCase().includes(formattedQuery.toLowerCase())||
+          item?.address.toLowerCase().includes(formattedQuery.toLowerCase())
+        );
+      });
+    }
+
+    
+
+   
 
     res.status(200).json(properties);
 
