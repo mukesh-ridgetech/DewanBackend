@@ -23,7 +23,7 @@ const sheduleSchema = new mongoose.Schema({
 
     properties: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Properties',
+        ref: 'properties',
         required: true,
     },
    
