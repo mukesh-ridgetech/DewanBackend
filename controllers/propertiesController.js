@@ -180,6 +180,8 @@ export const filterProperties = async (req, res) => {
       searchQuery
     } = req.query;
 
+    console.log(locationName)
+
     var location = ""
     // Build the base filter query
     const filterQuery = {};
@@ -216,13 +218,19 @@ export const filterProperties = async (req, res) => {
       }
 
 
-      if(locationName){
-        location = locationName.replace(/_/g, ' ');
-      }
+      
+      
+      // if(locationName){
+      //   filterQuery.location = locationName;
+
+      // }
 
     if (bhkType) {
       filterQuery.bhkType = bhkType;
     }
+   
+    console.log(filterQuery)
+    
 
     // Initial query to find properties
     let query = Properties.find(filterQuery)
@@ -233,14 +241,14 @@ export const filterProperties = async (req, res) => {
       })
       .populate({
         path: 'location',
-        match: location ? { sector: { $regex: location, $options: 'i' } } : {}, // Filter location by name
+        // Filter location by name
          
       })
       .populate({
         path: 'amenities',
         // match:  { name: { $regex: amenitiesName, $options: 'i' } },
         // select: 'name', // Select specific fields
-      });
+      }).exec();
 
     // Execute the query
     let properties = await query;
@@ -267,6 +275,8 @@ export const filterProperties = async (req, res) => {
            )
           )
         )
+
+        &&(property?.location?.city?.toLowerCase()===locationName?.toLowerCase())
     );
 
 

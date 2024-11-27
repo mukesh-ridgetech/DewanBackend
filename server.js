@@ -15,6 +15,9 @@ import transitionRoutes from './routes/transitionRoutes.js'
 import propertiesRoutes from './routes/propertiesRoutes.js'
 import trendingRoutes from './routes/trendingRoutes.js'
 import testinomialRoutes from './routes/testinomialRoutes.js'
+import contactRoutes from './routes/contactRoutes.js'
+import messageRoutes from './routes/messageRoutes.js'
+import sheduleRoutes from './routes/sheduleRoutes.js'
 import cors from 'cors'
 // Initialize App and Configurations
 dotenv.config()
@@ -44,6 +47,9 @@ app.use('/api/transition', transitionRoutes);
 app.use('/api/properties', propertiesRoutes);
 app.use('/api/trending', trendingRoutes);
 app.use('/api/testinomial', testinomialRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/massage', messageRoutes);
+app.use('/api/shedule', sheduleRoutes);
 
 
 app.get('/', (req, res) => {

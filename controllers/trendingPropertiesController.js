@@ -49,6 +49,39 @@ export const getAllTrending = async (req, res) => {
     }
 };
 
+
+export const getAllTrendingByLocation = async (req, res) => {
+    try {
+
+        const {location} = req.body;
+        const trending = await Trending.find()
+            .populate('location')
+            .populate({
+                path: 'properties',
+                populate: [
+                    { path: 'builder', model: 'Builder' }, // Populate builder details
+                    { path: 'location', model: 'Location' }, // Populate location details
+                    { path: 'amenities', model: 'Amenities' }, // Populate amenities details
+                    {path:'overview.name',model: 'Overview'}
+                ],
+            })
+         
+            const filterdata = trending.filter((property)=>{
+                       return property?.location?.city?.toLowerCase() === location?.toLowerCase();
+            })
+
+            // path: 'overview',         // Populate the entire overview array if needed
+            // populate: {
+            //     path: 'name',         // Nested populate for overview.name
+            //     model: ''Overview',    // Reference to the correct model (Overview)
+            // }
+        res.status(200).json(filterdata);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Get a single Trending item by ID
 export const getTrendingById = async (req, res) => {
     try {
@@ -93,6 +126,9 @@ export const updateTrending = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
 
 // Delete a Trending item
 export const deleteTrending = async (req, res) => {
